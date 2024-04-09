@@ -55,6 +55,23 @@ exports.REWRITES = [
     destination: '/createOrganization',
   },
   {
+    source: '/dashboard',
+    destination: '/dashboard',
+  },
+  { source: '/workspace', destination: '/dashboard' },
+  {
+    source: '/dashboard/:slug/:section?/:subpath*',
+    destination: '/dashboard',
+  },
+  {
+    source: '/workspace/:slug/:section?/:subpath*',
+    destination: '/dashboard',
+  },
+  {
+    source: '/dashboard/:slug/expenses/new',
+    destination: '/submit-expense',
+  },
+  {
     source: '/:parentCollectiveSlug?/:collectiveType(events|projects)?/:collectiveSlug/updates',
     destination: '/updates',
   },
@@ -127,19 +144,6 @@ exports.REWRITES = [
     destination: '/create-project',
   },
   {
-    source: '/dashboard',
-    destination: '/dashboard',
-  },
-  { source: '/workspace', destination: '/dashboard' },
-  {
-    source: '/dashboard/:slug/:section?/:subpath*',
-    destination: '/dashboard',
-  },
-  {
-    source: '/workspace/:slug/:section?/:subpath*',
-    destination: '/dashboard',
-  },
-  {
     source: '/:parentCollectiveSlug?/:collectiveType(events|projects)?/:collectiveSlug/contact',
     destination: '/collective-contact',
   },
@@ -180,7 +184,6 @@ exports.REWRITES = [
     source: '/fund/:verb(apply|create)/:step(form)?',
     destination: '/create-fund',
   },
-
   // New Create Collective Flow
   {
     source: '/:hostCollectiveSlug?/:verb(create)/:version(v2)?/:category(community|climate)?/:step(form)?',
