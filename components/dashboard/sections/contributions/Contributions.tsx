@@ -12,6 +12,7 @@ import { Order, OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 
 import Avatar from '../../../Avatar';
+import { ContributionDrawer } from '../../../contributions/ContributionDrawer';
 import { DataTable } from '../../../DataTable';
 import DateTime from '../../../DateTime';
 import EditOrderModal, { EditOrderActions } from '../../../EditOrderModal';
@@ -325,6 +326,7 @@ type ContributionsProps = DashboardSectionProps & {
 };
 
 const Contributions = ({ accountSlug, direction }: ContributionsProps) => {
+  const [selectedContributionId, setSelectedContributionId] = React.useState(null);
   const intl = useIntl();
   const router = useRouter();
   const {
@@ -448,68 +450,75 @@ const Contributions = ({ accountSlug, direction }: ContributionsProps) => {
   const currentViewCount = views.find(v => v.id === queryFilter.activeViewId)?.count;
   const nbPlaceholders = currentViewCount < queryFilter.values.limit ? currentViewCount : queryFilter.values.limit;
   return (
-    <div className="flex max-w-screen-lg flex-col gap-4">
-      <DashboardHeader
-        title={
-          isIncoming ? (
-            <FormattedMessage id="IncomingContributions" defaultMessage="Incoming Contributions" />
-          ) : (
-            <FormattedMessage id="OutgoingContributions" defaultMessage="Outgoing Contributions" />
-          )
-        }
-        description={
-          isIncoming ? (
-            <FormattedMessage id="IncomingContributions.description" defaultMessage="Contributions to your account." />
-          ) : (
-            <FormattedMessage
-              id="OutgoingContributions.description"
-              defaultMessage="Manage your contributions to other Collectives."
+    <React.Fragment>
+      <div className="flex max-w-screen-lg flex-col gap-4">
+        <DashboardHeader
+          title={
+            isIncoming ? (
+              <FormattedMessage id="IncomingContributions" defaultMessage="Incoming Contributions" />
+            ) : (
+              <FormattedMessage id="OutgoingContributions" defaultMessage="Outgoing Contributions" />
+            )
+          }
+          description={
+            isIncoming ? (
+              <FormattedMessage
+                id="IncomingContributions.description"
+                defaultMessage="Contributions to your account."
+              />
+            ) : (
+              <FormattedMessage
+                id="OutgoingContributions.description"
+                defaultMessage="Manage your contributions to other Collectives."
+              />
+            )
+          }
+        />
+        <Filterbar {...queryFilter} />
+
+        {isIncoming && metadata?.account?.[ContributionsTab.PAUSED].totalCount > 0 && (
+          <PausedIncomingContributionsMessage
+            account={metadata.account}
+            count={metadata.account[ContributionsTab.PAUSED].totalCount}
+          />
+        )}
+
+        {error ? (
+          <MessageBoxGraphqlError error={error} />
+        ) : !loading && selectedOrders.length === 0 ? (
+          <EmptyResults
+            entityType="CONTRIBUTIONS"
+            hasFilters={queryFilter.hasFilters}
+            onResetFilters={() => queryFilter.resetFilters({})}
+          />
+        ) : (
+          <div className="flex flex-col gap-4">
+            <DataTable
+              loading={loading}
+              columns={columns}
+              data={selectedOrders}
+              mobileTableView
+              nbPlaceholders={nbPlaceholders}
+              onClickRow={row => setSelectedContributionId(row.original.legacyId) }
             />
-          )
-        }
-      />
-      <Filterbar {...queryFilter} />
-
-      {isIncoming && metadata?.account?.[ContributionsTab.PAUSED].totalCount > 0 && (
-        <PausedIncomingContributionsMessage
-          account={metadata.account}
-          count={metadata.account[ContributionsTab.PAUSED].totalCount}
-        />
-      )}
-
-      {error ? (
-        <MessageBoxGraphqlError error={error} />
-      ) : !loading && selectedOrders.length === 0 ? (
-        <EmptyResults
-          entityType="CONTRIBUTIONS"
-          hasFilters={queryFilter.hasFilters}
-          onResetFilters={() => queryFilter.resetFilters({})}
-        />
-      ) : (
-        <div className="flex flex-col gap-4">
-          <DataTable
-            loading={loading}
-            columns={columns}
-            data={selectedOrders}
-            mobileTableView
-            nbPlaceholders={nbPlaceholders}
+            <Pagination
+              totalPages={pages}
+              page={currentPage}
+              onChange={page => queryFilter.setFilter('offset', (page - 1) * limit)}
+            />
+          </div>
+        )}
+        {editOrder.order && (
+          <EditOrderModal
+            accountSlug={accountSlug}
+            order={editOrder.order}
+            action={editOrder.action}
+            onClose={() => setEditOrder({ order: null, action: null })}
           />
-          <Pagination
-            totalPages={pages}
-            page={currentPage}
-            onChange={page => queryFilter.setFilter('offset', (page - 1) * limit)}
-          />
-        </div>
-      )}
-      {editOrder.order && (
-        <EditOrderModal
-          accountSlug={accountSlug}
-          order={editOrder.order}
-          action={editOrder.action}
-          onClose={() => setEditOrder({ order: null, action: null })}
-        />
-      )}
-    </div>
+        )}
+      </div>
+      <ContributionDrawer open={!!selectedContributionId} onClose={() => setSelectedContributionId(null)} orderId={selectedContributionId} />
+    </React.Fragment>
   );
 };
 
