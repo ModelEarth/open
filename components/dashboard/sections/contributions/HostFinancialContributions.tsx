@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { PlusIcon } from 'lucide-react';
+import { useRouter } from 'next/router';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 
@@ -10,9 +11,11 @@ import { OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../../../lib/hooks/useLoggedInUser';
 import { usePrevious } from '../../../../lib/hooks/usePrevious';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
+import { PREVIEW_FEATURE_KEYS } from '../../../../lib/preview-features';
 
 import { accountHoverCardFields } from '../../../AccountHoverCard';
 import { confirmContributionFieldsFragment } from '../../../ContributionConfirmationModal';
+import { ContributionDrawer } from '../../../contributions/ContributionDrawer';
 import { Flex } from '../../../Grid';
 import MessageBoxGraphqlError from '../../../MessageBoxGraphqlError';
 import OrdersList from '../../../orders/OrdersList';
@@ -185,6 +188,41 @@ const ROUTE_PARAMS = ['hostCollectiveSlug', 'collectiveSlug', 'view', 'slug', 's
 
 const HostFinancialContributions = ({ accountSlug: hostSlug }: DashboardSectionProps) => {
   const intl = useIntl();
+  const router = useRouter();
+
+  const selectedContributionId = router.query.orderId ? parseInt(router.query.orderId as string) : null;
+
+  const onToogleOrderDrawer = React.useCallback(
+    orderId => {
+      const newUrl = new URL(router.asPath, window.location.origin);
+
+      if (orderId) {
+        newUrl.searchParams.set('orderId', orderId);
+      } else {
+        newUrl.searchParams.delete('orderId');
+      }
+
+      router.push(newUrl.toString(), undefined, { shallow: true });
+    },
+    [router],
+  );
+
+  const orderUrl = React.useMemo(() => {
+    if (!selectedContributionId) {
+      return null;
+    }
+
+    const url = new URL(router.asPath, window.location.origin);
+    const keys = [];
+    url.searchParams.forEach((value, key) => {
+      keys.push(key);
+    });
+    keys.forEach(k => url.searchParams.delete(k));
+    url.searchParams.set('orderId', selectedContributionId.toString());
+
+    return url.toString();
+  }, [selectedContributionId, router.asPath]);
+
   const [showCreatePendingOrderModal, setShowCreatePendingOrderModal] = React.useState(false);
 
   const { data: metaData, refetch: refetchMetaData } = useQuery(hostOrdersMetaDataQuery, {
@@ -245,66 +283,77 @@ const HostFinancialContributions = ({ accountSlug: hostSlug }: DashboardSectionP
   }, [LoggedInUser]);
 
   return (
-    <div className="flex w-full max-w-screen-lg flex-col gap-4">
-      <DashboardHeader
-        title={<FormattedMessage id="FinancialContributions" defaultMessage="Financial Contributions" />}
-        description={<FormattedMessage defaultMessage="Contributions for Collectives you host." id="ZIZ7Ms" />}
-        actions={
-          <React.Fragment>
-            <Button
-              size="sm"
-              onClick={() => setShowCreatePendingOrderModal(true)}
-              className="gap-1 "
-              data-cy="create-pending-contribution"
-            >
-              <span>
-                <FormattedMessage defaultMessage="Create pending" id="clx/0D" />
-              </span>
-              <PlusIcon size={20} />
-            </Button>
-            {showCreatePendingOrderModal && (
-              <CreatePendingOrderModal
-                hostSlug={hostSlug}
-                onClose={() => setShowCreatePendingOrderModal(false)}
-                onSuccess={() => {
-                  refetch();
-                  refetchMetaData();
-                }}
-              />
-            )}
-          </React.Fragment>
-        }
-      />
-      <Filterbar {...queryFilter} />
-
-      {error ? (
-        <MessageBoxGraphqlError error={error} />
-      ) : !loading && !data.orders?.nodes.length ? (
-        <EmptyResults
-          entityType="CONTRIBUTIONS"
-          hasFilters={queryFilter.hasFilters}
-          onResetFilters={() => queryFilter.resetFilters({})}
+    <React.Fragment>
+      <div className="flex w-full max-w-screen-lg flex-col gap-4">
+        <DashboardHeader
+          title={<FormattedMessage id="FinancialContributions" defaultMessage="Financial Contributions" />}
+          description={<FormattedMessage defaultMessage="Contributions for Collectives you host." id="ZIZ7Ms" />}
+          actions={
+            <React.Fragment>
+              <Button
+                size="sm"
+                onClick={() => setShowCreatePendingOrderModal(true)}
+                className="gap-1 "
+                data-cy="create-pending-contribution"
+              >
+                <span>
+                  <FormattedMessage defaultMessage="Create pending" id="clx/0D" />
+                </span>
+                <PlusIcon size={20} />
+              </Button>
+              {showCreatePendingOrderModal && (
+                <CreatePendingOrderModal
+                  hostSlug={hostSlug}
+                  onClose={() => setShowCreatePendingOrderModal(false)}
+                  onSuccess={() => {
+                    refetch();
+                    refetchMetaData();
+                  }}
+                />
+              )}
+            </React.Fragment>
+          }
         />
-      ) : (
-        <React.Fragment>
-          <OrdersList
-            isLoading={loading}
-            orders={data?.orders?.nodes}
-            nbPlaceholders={variables.limit}
-            showPlatformTip
-            host={data?.host}
+        <Filterbar {...queryFilter} />
+
+        {error ? (
+          <MessageBoxGraphqlError error={error} />
+        ) : !loading && !data.orders?.nodes.length ? (
+          <EmptyResults
+            entityType="CONTRIBUTIONS"
+            hasFilters={queryFilter.hasFilters}
+            onResetFilters={() => queryFilter.resetFilters({})}
           />
-          <Flex mt={5} justifyContent="center">
-            <Pagination
-              total={data?.orders?.totalCount}
-              limit={variables.limit}
-              offset={variables.offset}
-              ignoredQueryParams={ROUTE_PARAMS}
+        ) : (
+          <React.Fragment>
+            <OrdersList
+              isLoading={loading}
+              orders={data?.orders?.nodes}
+              nbPlaceholders={variables.limit}
+              showPlatformTip
+              host={data?.host}
+              onClickRow={orderId => onToogleOrderDrawer(orderId)}
             />
-          </Flex>
-        </React.Fragment>
+            <Flex mt={5} justifyContent="center">
+              <Pagination
+                total={data?.orders?.totalCount}
+                limit={variables.limit}
+                offset={variables.offset}
+                ignoredQueryParams={ROUTE_PARAMS}
+              />
+            </Flex>
+          </React.Fragment>
+        )}
+      </div>
+      {LoggedInUser?.hasPreviewFeatureEnabled(PREVIEW_FEATURE_KEYS.DASHBOARD_CONTRIBUTION_DETAILS) && (
+        <ContributionDrawer
+          open={!!selectedContributionId}
+          onClose={() => onToogleOrderDrawer(null)}
+          orderId={selectedContributionId}
+          orderUrl={orderUrl}
+        />
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

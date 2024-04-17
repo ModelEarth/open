@@ -66,11 +66,16 @@ const OrderContainer = styled.div`
   }
 `;
 
-const OrderBudgetItem = ({ isLoading, order, showPlatformTip, showAmountSign, host }) => {
+const OrderBudgetItem = ({ isLoading, order, showPlatformTip, showAmountSign, host, onClick = null }) => {
   const intl = useIntl();
+
+  const onClickCallback = React.useCallback(() => {
+    onClick?.(order?.legacyId);
+  }, [onClick, order?.legacyId]);
+
   return (
     <OrderContainer>
-      <Flex justifyContent="space-between" flexWrap="wrap">
+      <Flex justifyContent="space-between" flexWrap="wrap" onClick={onClickCallback}>
         <Flex flex="1" minWidth="max(60%, 300px)" maxWidth={[null, '70%']}>
           <Box mr={3}>
             {isLoading ? (
@@ -296,6 +301,7 @@ OrderBudgetItem.propTypes = {
     }),
   }),
   showPlatformTip: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 OrderBudgetItem.defaultProps = {

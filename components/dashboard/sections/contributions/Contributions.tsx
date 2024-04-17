@@ -9,7 +9,9 @@ import { EMPTY_ARRAY } from '../../../../lib/constants/utils';
 import { Views } from '../../../../lib/filters/filter-types';
 import { API_V2_CONTEXT, gql } from '../../../../lib/graphql/helpers';
 import { Order, OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
+import useLoggedInUser from '../../../../lib/hooks/useLoggedInUser';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
+import { PREVIEW_FEATURE_KEYS } from '../../../../lib/preview-features';
 
 import Avatar from '../../../Avatar';
 import { ContributionDrawer } from '../../../contributions/ContributionDrawer';
@@ -326,7 +328,7 @@ type ContributionsProps = DashboardSectionProps & {
 };
 
 const Contributions = ({ accountSlug, direction }: ContributionsProps) => {
-  const [selectedContributionId, setSelectedContributionId] = React.useState(null);
+  const { LoggedInUser } = useLoggedInUser();
   const intl = useIntl();
   const router = useRouter();
   const {
@@ -340,6 +342,39 @@ const Contributions = ({ accountSlug, direction }: ContributionsProps) => {
     },
     context: API_V2_CONTEXT,
   });
+
+  const selectedContributionId = router.query.orderId ? parseInt(router.query.orderId as string) : null;
+
+  const onToogleOrderDrawer = React.useCallback(
+    orderId => {
+      const newUrl = new URL(router.asPath, window.location.origin);
+
+      if (orderId) {
+        newUrl.searchParams.set('orderId', orderId);
+      } else {
+        newUrl.searchParams.delete('orderId');
+      }
+
+      router.push(newUrl.toString(), undefined, { shallow: true });
+    },
+    [router],
+  );
+
+  const orderUrl = React.useMemo(() => {
+    if (!selectedContributionId) {
+      return null;
+    }
+
+    const url = new URL(router.asPath, window.location.origin);
+    const keys = [];
+    url.searchParams.forEach((value, key) => {
+      keys.push(key);
+    });
+    keys.forEach(k => url.searchParams.delete(k));
+    url.searchParams.set('orderId', selectedContributionId.toString());
+
+    return url.toString();
+  }, [selectedContributionId, router.asPath]);
 
   const views: Views<z.infer<typeof schema>> = [
     {
@@ -499,7 +534,7 @@ const Contributions = ({ accountSlug, direction }: ContributionsProps) => {
               data={selectedOrders}
               mobileTableView
               nbPlaceholders={nbPlaceholders}
-              onClickRow={row => setSelectedContributionId(row.original.legacyId) }
+              onClickRow={row => onToogleOrderDrawer(row.original.legacyId)}
             />
             <Pagination
               totalPages={pages}
@@ -517,7 +552,14 @@ const Contributions = ({ accountSlug, direction }: ContributionsProps) => {
           />
         )}
       </div>
-      <ContributionDrawer open={!!selectedContributionId} onClose={() => setSelectedContributionId(null)} orderId={selectedContributionId} />
+      {LoggedInUser?.hasPreviewFeatureEnabled(PREVIEW_FEATURE_KEYS.DASHBOARD_CONTRIBUTION_DETAILS) && (
+        <ContributionDrawer
+          open={!!selectedContributionId}
+          onClose={() => onToogleOrderDrawer(null)}
+          orderId={selectedContributionId}
+          orderUrl={orderUrl}
+        />
+      )}
     </React.Fragment>
   );
 };

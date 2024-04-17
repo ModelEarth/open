@@ -13,7 +13,15 @@ const OrderContainer = styled.div`
     `}
 `;
 
-const OrdersList = ({ orders, isLoading, nbPlaceholders, showPlatformTip, showAmountSign, host }) => {
+const OrdersList = ({
+  orders,
+  isLoading,
+  nbPlaceholders,
+  showPlatformTip,
+  showAmountSign,
+  host,
+  onClickRow = null,
+}) => {
   orders = !isLoading ? orders : [...new Array(nbPlaceholders)];
   if (!orders?.length) {
     return null;
@@ -24,6 +32,7 @@ const OrdersList = ({ orders, isLoading, nbPlaceholders, showPlatformTip, showAm
       {orders.map((order, idx) => (
         <OrderContainer key={order?.id || idx} isFirst={!idx} data-cy={`order-${order?.status}`}>
           <OrderBudgetItem
+            onClick={onClickRow ?? null}
             isLoading={isLoading}
             order={order}
             showPlatformTip={showPlatformTip}
@@ -49,6 +58,7 @@ OrdersList.propTypes = {
   ),
   showPlatformTip: PropTypes.bool,
   showAmountSign: PropTypes.bool,
+  onClickRow: PropTypes.func,
 };
 
 OrdersList.defaultProps = {
