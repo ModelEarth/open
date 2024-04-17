@@ -693,7 +693,5 @@ function ContributionActivities(props: ContributionActivitiesProps) {
     return true;
   });
 
-  return filteredActivities.map(activity => (
-    <ActivityListItem key={activity.id} activity={activity} />
-  ));
+  return filteredActivities.map(activity => <ActivityListItem key={activity.id} activity={activity} />);
 }
