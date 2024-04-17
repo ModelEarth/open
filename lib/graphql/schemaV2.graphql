@@ -569,6 +569,11 @@ interface Account {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -1339,6 +1344,7 @@ interface Transaction {
     """
     fetchPaymentProcessorFee: Boolean = false
   ): Amount
+  paymentProcessorUrl: String
   host: Account
   account: Account
   oppositeAccount: Account
@@ -2180,6 +2186,11 @@ type Host implements Account & AccountWithContributions {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -3269,7 +3280,6 @@ enum PaymentMethodService {
   PAYPAL
   STRIPE
   OPENCOLLECTIVE
-  PREPAID
   THEGIVINGBLOCK
   WISE
 }
@@ -4380,6 +4390,11 @@ type PaymentMethod {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection
 }
 
@@ -7159,6 +7174,11 @@ type Bot implements Account {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -7889,6 +7909,11 @@ type Collective implements Account & AccountWithHost & AccountWithContributions 
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -8433,6 +8458,7 @@ type Credit implements Transaction {
     """
     fetchPaymentProcessorFee: Boolean = false
   ): Amount!
+  paymentProcessorUrl: String
   host: Account
 
   """
@@ -8577,6 +8603,7 @@ type Debit implements Transaction {
     """
     fetchPaymentProcessorFee: Boolean = false
   ): Amount!
+  paymentProcessorUrl: String
   host: Account
 
   """
@@ -9060,6 +9087,11 @@ type Event implements Account & AccountWithHost & AccountWithContributions & Acc
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -10020,6 +10052,11 @@ type Individual implements Account {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -10956,6 +10993,11 @@ type Organization implements Account & AccountWithContributions {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -11786,6 +11828,11 @@ type Vendor implements Account & AccountWithContributions {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -12848,6 +12895,11 @@ type Query {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   organization(
     """
@@ -15057,6 +15109,11 @@ type Fund implements Account & AccountWithHost & AccountWithContributions {
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
@@ -15895,6 +15952,11 @@ type Project implements Account & AccountWithHost & AccountWithContributions & A
     Same as onlySubscriptions, but returns only orders with active subscriptions
     """
     onlyActiveSubscriptions: Boolean
+
+    """
+    Return only orders made from/to that opposite account (only works when orders are already filtered with a main account)
+    """
+    oppositeAccount: AccountReferenceInput
   ): OrderCollection!
   expenses(
     direction: ExpenseDirection
