@@ -7,6 +7,7 @@ export enum PREVIEW_FEATURE_KEYS {
   NEW_EXPENSE_FLOW = 'NEW_EXPENSE_FLOW',
   HOST_REPORTS = 'HOST_REPORTS',
   TAX_FORMS = 'TAX_FORMS',
+  DASHBOARD_CONTRIBUTION_DETAILS = 'DASHBOARD_CONTRIBUTION_DETAILS',
 }
 
 export type PreviewFeature = {
@@ -62,5 +63,13 @@ export const previewFeatures: PreviewFeature[] = [
     publicBeta: false,
     alwaysEnableInDev: true,
     closedBetaAccessFor: ['opencollective'],
+  },
+  {
+    key: PREVIEW_FEATURE_KEYS.DASHBOARD_CONTRIBUTION_DETAILS,
+    title: 'Dashboard contributions',
+    description: 'New experience to view and manage contribution details',
+    alwaysEnableInDev: true,
+    publicBeta: false,
+    closedBetaAccessFor: ['opencollective', 'design', 'engineering'],
   },
 ];
