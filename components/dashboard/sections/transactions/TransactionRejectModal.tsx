@@ -32,12 +32,14 @@ const TransactionRejectModal = ({
   canRefund,
   open,
   setOpen,
+  onCloseAutoFocus,
 }: {
   id: string;
   onMutationSuccess?: () => void;
   canRefund?: boolean;
   open: boolean;
   setOpen: (open: boolean) => void;
+  onCloseAutoFocus?: (e: Event) => void;
 }) => {
   const [rejectTransaction, { loading }] = useMutation(rejectTransactionMutation, {
     context: API_V2_CONTEXT,
@@ -62,7 +64,7 @@ const TransactionRejectModal = ({
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogContent>
+      <AlertDialogContent onCloseAutoFocus={onCloseAutoFocus}>
         <AlertDialogHeader>
           <AlertDialogTitle>
             <FormattedMessage defaultMessage="Are you sure you want to reject this transaction?" id="fbcrkY" />
