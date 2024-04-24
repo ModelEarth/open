@@ -1,14 +1,10 @@
 import React from 'react';
 import { FileText } from '@styled-icons/feather/FileText';
-import styled from 'styled-components';
 
-import { Box } from './Grid';
-import { P } from './Text';
+import { formatFileSize } from '../lib/file-utils';
 
-const FileName = styled(P)`
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+import { Box, Flex } from './Grid';
+import StyledLink from './StyledLink';
 
 type LocalFilePreviewProps = {
   file: File;
@@ -17,20 +13,34 @@ type LocalFilePreviewProps = {
 
 const SUPPORTED_IMAGE_REGEX = /^image\/(jpeg|jpg|png|gif|webp)$/;
 
-export default function LocalFilePreview(props: LocalFilePreviewProps) {
+export default function LocalFilePreview({ file, size }: Readonly<LocalFilePreviewProps>) {
   return (
-    <Box>
-      <Box width={props.size} height={props.size}>
-        {SUPPORTED_IMAGE_REGEX.test(props.file.type) ? (
-          <img height="100%" width="100%" src={URL.createObjectURL(props.file)} alt={props.file.name} />
+    <Flex flexDirection="column" alignItems="center">
+      <Box width={size} height={size}>
+        {SUPPORTED_IMAGE_REGEX.test(file.type) ? (
+          <img height="100%" width="100%" src={URL.createObjectURL(file)} alt={file.name} />
         ) : (
           <FileText opacity={0.25} />
         )}
       </Box>
 
-      <FileName fontSize="13px" fontWeight="700" mt={2}>
-        {props.file.name}
-      </FileName>
-    </Box>
+      <p className="mt-2 max-w-full truncate text-center text-xs">
+        {file.type === 'application/pdf' ? (
+          <StyledLink
+            underlineOnHover
+            fontWeight="bold"
+            hoverColor="black.800"
+            color="black.800"
+            href={URL.createObjectURL(file)}
+            openInNewTab
+          >
+            {file.name}
+          </StyledLink>
+        ) : (
+          <span className="font-bold text-gray-800">{file.name}</span>
+        )}{' '}
+        <span className="text-gray-500">({formatFileSize(file.size)})</span>
+      </p>
+    </Flex>
   );
 }
