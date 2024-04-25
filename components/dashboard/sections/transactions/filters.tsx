@@ -27,7 +27,15 @@ import { orderByFilter } from '../../filters/OrderFilter';
 import { paymentMethodFilter } from '../../filters/PaymentMethodFilter';
 import { searchFilter } from '../../filters/SearchFilter';
 import { VirtualCardRenderer } from '../../filters/VirtualCardsFilter';
+import { buildSortFilter } from '../../filters/SortFilter';
 
+const sortFilter = buildSortFilter({
+  fieldSchema: z.enum(['CREATED_AT', 'EFFECTIVE_DATE']),
+  defaultValue: {
+    field: 'CREATED_AT',
+    direction: 'DESC',
+  },
+});
 const clearedAtDateFilter = {
   ...dateFilter,
   toVariables: value => dateToVariables(value, 'cleared'),
@@ -43,7 +51,7 @@ export const schema = z.object({
   date: dateFilter.schema,
   clearedAt: clearedAtDateFilter.schema,
   amount: amountFilter.schema,
-  orderBy: orderByFilter.schema,
+  sort: sortFilter.schema,
   searchTerm: searchFilter.schema,
   kind: isMulti(z.nativeEnum(TransactionKind)).optional(),
   type: z.nativeEnum(TransactionType).optional(),
@@ -85,7 +93,6 @@ export const filters: FilterComponentConfigs<FilterValues, FilterMeta> = {
   date: dateFilter.filter,
   clearedAt: clearedAtDateFilter.filter,
   amount: amountFilter.filter,
-  orderBy: orderByFilter.filter,
   type: {
     labelMsg: defineMessage({ id: 'Type', defaultMessage: 'Type' }),
     Component: ({ intl, ...props }) => (

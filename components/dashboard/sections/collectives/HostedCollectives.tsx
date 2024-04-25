@@ -40,6 +40,24 @@ import { DashboardSectionProps } from '../../types';
 import CollectiveDetails from './CollectiveDetails';
 import { cols } from './common';
 import { hostedCollectivesMetadataQuery, hostedCollectivesQuery } from './queries';
+import type { HostedCollectiveFieldsFragment } from '../../../../lib/graphql/types/v2/graphql';
+import { buildSortFilter } from '../../filters/SortFilter';
+
+const customSorti18nlabels = {
+  CREATED_AT: defineMessage({
+    defaultMessage: 'Hosted since',
+    id: 'yYfPtq',
+  }),
+};
+
+export const sortFilter = buildSortFilter({
+  fieldSchema: z.enum(['CREATED_AT', 'BALANCE', 'NAME']),
+  defaultValue: {
+    field: 'CREATED_AT',
+    direction: 'DESC',
+  },
+  i18nCustomLabels: customSorti18nlabels,
+});
 
 const COLLECTIVES_PER_PAGE = 20;
 
@@ -47,7 +65,7 @@ const schema = z.object({
   limit: integer.default(COLLECTIVES_PER_PAGE),
   offset: integer.default(0),
   searchTerm: searchFilter.schema,
-  orderBy: accountOrderByFilter.schema,
+  sort: sortFilter.schema,
   hostFeesStructure: z.nativeEnum(HostFeeStructure).optional(),
   type: isMulti(z.nativeEnum(HostedCollectiveTypes)).optional(),
   status: collectiveStatusFilter.schema,
@@ -55,13 +73,12 @@ const schema = z.object({
 });
 
 const toVariables: FiltersToVariables<z.infer<typeof schema>, HostedCollectivesQueryVariables> = {
-  orderBy: accountOrderByFilter.toVariables,
   status: collectiveStatusFilter.toVariables,
   consolidatedBalance: consolidatedBalanceFilter.toVariables,
 };
 
 const filters: FilterComponentConfigs<z.infer<typeof schema>> = {
-  orderBy: accountOrderByFilter.filter,
+  sort: sortFilter.filter,
   searchTerm: searchFilter.filter,
   hostFeesStructure: {
     labelMsg: defineMessage({ id: 'FeeStructure', defaultMessage: 'Fee structure' }),
