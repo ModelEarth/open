@@ -260,7 +260,6 @@ export default function AccountTable({ accountSlug, queryFilter, metric }) {
   const currency = data?.account?.[metric.id]?.current?.currency;
 
   const meta = {
-    selectAccount: slug => queryFilter.setFilter('account', slug),
     queryFilter,
     currency: currency,
     isAmount: !!metric.amount,

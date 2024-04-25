@@ -7,7 +7,9 @@ import { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filt
 import { boolean, integer, isMulti, limit, offset } from '../../../../lib/filters/schemas';
 import {
   Currency,
+  DateTimeField,
   ExpenseType,
+  OrderDirection,
   PaymentMethodType,
   TransactionKind,
   TransactionsTableQueryVariables,
@@ -23,11 +25,10 @@ import { amountFilter } from '../../filters/AmountFilter';
 import ComboSelectFilter from '../../filters/ComboSelectFilter';
 import { dateFilter } from '../../filters/DateFilter';
 import { dateToVariables } from '../../filters/DateFilter/schema';
-import { orderByFilter } from '../../filters/OrderFilter';
 import { paymentMethodFilter } from '../../filters/PaymentMethodFilter';
 import { searchFilter } from '../../filters/SearchFilter';
-import { VirtualCardRenderer } from '../../filters/VirtualCardsFilter';
 import { buildSortFilter } from '../../filters/SortFilter';
+import { VirtualCardRenderer } from '../../filters/VirtualCardsFilter';
 
 const sortFilter = buildSortFilter({
   fieldSchema: z.enum(['CREATED_AT', 'EFFECTIVE_DATE']),
@@ -77,7 +78,7 @@ export type FilterMeta = {
 // Only needed when values and key of filters are different
 // to expected key and value of QueryVariables
 export const toVariables: FiltersToVariables<FilterValues, TransactionsTableQueryVariables, FilterMeta> = {
-  orderBy: orderByFilter.toVariables,
+  // orderBy: orderByFilter.toVariables,
   date: dateFilter.toVariables,
   clearedAt: clearedAtDateFilter.toVariables,
   amount: amountFilter.toVariables,
@@ -92,6 +93,7 @@ export const filters: FilterComponentConfigs<FilterValues, FilterMeta> = {
   searchTerm: searchFilter.filter,
   date: dateFilter.filter,
   clearedAt: clearedAtDateFilter.filter,
+  sort: sortFilter.filter,
   amount: amountFilter.filter,
   type: {
     labelMsg: defineMessage({ id: 'Type', defaultMessage: 'Type' }),

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Table } from '@tanstack/react-table';
 import { MoreHorizontal, PanelRightOpen } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
@@ -29,16 +30,21 @@ function ActionItem({ action }) {
     </DropdownMenuItem>
   );
 }
+interface RowActionsMenuProps<TData> {
+  table: Table<TData>;
+  row: Row<TData>;
+  actionsMenuTriggerRef: React.MutableRefObject<HTMLButtonElement>;
+}
 
-export function RowActionsMenu({ row, actionsMenuTriggerRef, table }) {
+export function RowActionsMenu<TData>({ row, actionsMenuTriggerRef, table }: RowActionsMenuProps<TData>) {
   if (!row.original) {
     return null;
   }
-  const { getActions, openDrawer } = table.options.meta;
+  const { getActions, onClickRow } = table.options.meta;
 
   const actions = getActions(row.original, actionsMenuTriggerRef);
   const openDetails = () => {
-    openDrawer?.(row.id, actionsMenuTriggerRef);
+    onClickRow?.(row, actionsMenuTriggerRef);
   };
   const primaryActions = actions.filter(a => a.type === ActionType.PRIMARY);
   const secondaryActions = actions.filter(a => a.type === ActionType.SECONDARY);
@@ -55,7 +61,7 @@ export function RowActionsMenu({ row, actionsMenuTriggerRef, table }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => openDetails()} className="gap-2">
+        <DropdownMenuItem onClick={() => openDetails()} className="gap-2.5">
           <PanelRightOpen className="text-muted-foreground" size={16} />
           <FormattedMessage defaultMessage="Open details" id="iIXH4W" />
         </DropdownMenuItem>

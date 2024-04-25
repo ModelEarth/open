@@ -471,7 +471,7 @@ const CollectiveDetails = ({
                         data={children[type] || []}
                         mobileTableView
                         compact
-                        meta={{ intl, openCollectiveDetails }}
+                        meta={{ intl, onClickRow: row => openCollectiveDetails(row.original) }}
                         onClickRow={row => openCollectiveDetails(row.original)}
                         className="border-none"
                       />

@@ -34,6 +34,7 @@ import {
 } from './filters';
 import { transactionsTableQuery } from './queries';
 import TransactionsTable from './TransactionsTable';
+import useLocalStorage from '../../../../lib/hooks/useLocalStorage';
 
 export const schema = commonSchema.extend({
   account: hostedAccountFilter.schema,
@@ -91,17 +92,9 @@ const hostTransactionsMetaDataQuery = gql`
   }
 `;
 
-enum TestLayout {
-  DEBITCREDIT = 'debitcredit',
-  AMOUNT = 'amount',
-}
-
 const HostTransactions = ({ accountSlug: hostSlug }: DashboardSectionProps) => {
   const intl = useIntl();
   const [displayExportCSVModal, setDisplayExportCSVModal] = React.useState(false);
-
-  const [layout, setLayout] = React.useState(TestLayout.AMOUNT);
-
   const { data: metaData } = useQuery(hostTransactionsMetaDataQuery, {
     variables: { slug: hostSlug },
     context: API_V2_CONTEXT,
@@ -154,21 +147,18 @@ const HostTransactions = ({ accountSlug: hostSlug }: DashboardSectionProps) => {
       <DashboardHeader
         title={<FormattedMessage id="menu.transactions" defaultMessage="Transactions" />}
         actions={
-          <div className="flex items-center gap-2">
-            <ExportTransactionsCSVModal
-              open={displayExportCSVModal}
-              setOpen={setDisplayExportCSVModal}
-              queryFilter={queryFilter}
-              account={metaData?.host}
-              isHostReport
-              trigger={
-                <Button size="sm" variant="outline" onClick={() => setDisplayExportCSVModal(true)}>
-                  <FormattedMessage id="Export.Format" defaultMessage="Export {format}" values={{ format: 'CSV' }} />
-                </Button>
-              }
-            />
-            <PreviewFeatureConfigButton layout={layout} setLayout={setLayout} />
-          </div>
+          <ExportTransactionsCSVModal
+            open={displayExportCSVModal}
+            setOpen={setDisplayExportCSVModal}
+            queryFilter={queryFilter}
+            account={metaData?.host}
+            isHostReport
+            trigger={
+              <Button size="sm" variant="outline" onClick={() => setDisplayExportCSVModal(true)}>
+                <FormattedMessage id="Export.Format" defaultMessage="Export {format}" values={{ format: 'CSV' }} />
+              </Button>
+            }
+          />
         }
       />
 
@@ -188,7 +178,6 @@ const HostTransactions = ({ accountSlug: hostSlug }: DashboardSectionProps) => {
             loading={loading}
             nbPlaceholders={20}
             queryFilter={queryFilter}
-            useAltTestLayout={layout === TestLayout.DEBITCREDIT}
             refetchList={refetch}
           />
           <Flex mt={5} justifyContent="center">
@@ -203,68 +192,6 @@ const HostTransactions = ({ accountSlug: hostSlug }: DashboardSectionProps) => {
         </React.Fragment>
       )}
     </div>
-  );
-};
-
-// To be removed when feature is no longer in preview
-const PreviewFeatureConfigButton = ({ layout, setLayout }) => {
-  const [feedbackModalOpen, setFeedbackModalOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    const localStorageLayout = localStorage.getItem('host-transactions-layout');
-    if (localStorageLayout) {
-      setLayout(localStorageLayout as TestLayout);
-    }
-  }, []);
-  React.useEffect(() => {
-    localStorage.setItem('host-transactions-layout', layout);
-  }, [layout]);
-
-  return (
-    <React.Fragment>
-      <Popover>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <PopoverTrigger asChild>
-              <Button size="icon-sm" variant="outline">
-                <FlaskConical size={18} />
-              </Button>
-            </PopoverTrigger>
-          </TooltipTrigger>
-
-          <TooltipContent side="bottom">Configure preview feature</TooltipContent>
-        </Tooltip>
-        <PopoverContent align="end" sideOffset={8}>
-          <div className="flex flex-col gap-4">
-            <div className="space-y-2">
-              <h4 className="font-medium leading-none">Configure layout</h4>
-              <p className="text-sm text-muted-foreground">
-                {"We're testing layout options, please let us know what you prefer!"}
-              </p>
-            </div>
-
-            <RadioGroup defaultValue={layout} onValueChange={(value: TestLayout) => setLayout(value)}>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value={TestLayout.DEBITCREDIT} id={TestLayout.DEBITCREDIT} />
-                <Label htmlFor={TestLayout.DEBITCREDIT}>Debit/credit columns</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value={TestLayout.AMOUNT} id={TestLayout.AMOUNT} />
-                <Label htmlFor={TestLayout.AMOUNT}>Amount column</Label>
-              </div>
-            </RadioGroup>
-            <Button variant="outline" className="gap-2" onClick={() => setFeedbackModalOpen(true)}>
-              <Megaphone size={16} /> Give feedback
-            </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-      <FeedbackModal
-        feedbackKey={FEEDBACK_KEY.HOST_TRANSACTIONS}
-        open={feedbackModalOpen}
-        setOpen={setFeedbackModalOpen}
-      />
-    </React.Fragment>
   );
 };
 

@@ -25,7 +25,6 @@ import MessageBoxGraphqlError from '../../../MessageBoxGraphqlError';
 import Pagination from '../../../Pagination';
 import DashboardHeader from '../../DashboardHeader';
 import { EmptyResults } from '../../EmptyResults';
-import { accountOrderByFilter } from '../../filters/AccountsOrderBy';
 import { consolidatedBalanceFilter } from '../../filters/BalanceFilter';
 import {
   COLLECTIVE_STATUS,
@@ -35,20 +34,12 @@ import {
 import ComboSelectFilter from '../../filters/ComboSelectFilter';
 import { Filterbar } from '../../filters/Filterbar';
 import { searchFilter } from '../../filters/SearchFilter';
+import { buildSortFilter } from '../../filters/SortFilter';
 import { DashboardSectionProps } from '../../types';
 
 import CollectiveDetails from './CollectiveDetails';
 import { cols } from './common';
 import { hostedCollectivesMetadataQuery, hostedCollectivesQuery } from './queries';
-import type { HostedCollectiveFieldsFragment } from '../../../../lib/graphql/types/v2/graphql';
-import { buildSortFilter } from '../../filters/SortFilter';
-
-const customSorti18nlabels = {
-  CREATED_AT: defineMessage({
-    defaultMessage: 'Hosted since',
-    id: 'yYfPtq',
-  }),
-};
 
 export const sortFilter = buildSortFilter({
   fieldSchema: z.enum(['CREATED_AT', 'BALANCE', 'NAME']),
@@ -56,7 +47,12 @@ export const sortFilter = buildSortFilter({
     field: 'CREATED_AT',
     direction: 'DESC',
   },
-  i18nCustomLabels: customSorti18nlabels,
+  i18nCustomLabels: {
+    CREATED_AT: defineMessage({
+      defaultMessage: 'Hosted since',
+      id: 'yYfPtq',
+    }),
+  },
 });
 
 const COLLECTIVES_PER_PAGE = 20;
@@ -205,7 +201,7 @@ const HostedCollectives = ({ accountSlug: hostSlug, subpath }: DashboardSectionP
   };
   const isUnhosted = queryFilter.values?.status === COLLECTIVE_STATUS.UNHOSTED;
   const hostedAccounts = data?.host?.hostedAccounts;
-
+  const onClickRow = row => handleDrawer(row.original);
   return (
     <div className="flex max-w-screen-lg flex-col gap-4">
       <DashboardHeader title={<FormattedMessage id="HostedCollectives" defaultMessage="Hosted Collectives" />} />
@@ -234,8 +230,8 @@ const HostedCollectives = ({ accountSlug: hostSlug, subpath }: DashboardSectionP
             loading={loading}
             mobileTableView
             compact
-            meta={{ intl, openCollectiveDetails: handleDrawer, onEdit: handleEdit, host: data?.host }}
-            onClickRow={row => handleDrawer(row.original)}
+            meta={{ intl, onClickRow, onEdit: handleEdit, host: data?.host }}
+            onClickRow={onClickRow}
             getRowDataCy={row => `collective-${row.original.slug}`}
           />
           <Flex mt={5} justifyContent="center">

@@ -5,13 +5,21 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
+  OnChangeFn,
   Row,
   SortingState,
   TableMeta,
   useReactTable,
+  VisibilityState,
 } from '@tanstack/react-table';
-import { FormattedMessage } from 'react-intl';
+import clsx from 'clsx';
+import { isEqual, omitBy } from 'lodash';
+import { FormattedMessage, useIntl } from 'react-intl';
 
+import { GetActions } from '../lib/actions/types';
+import type { useQueryFilterReturnType } from '../lib/hooks/useQueryFilter';
+
+import { ColumnToggleDropdown } from './table/ColumnToggleDropdown';
 import { Skeleton } from './ui/Skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/Table';
 import { RowActionsMenu } from './RowActionsMenu';
@@ -20,7 +28,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   loading?: boolean;
-  meta?: TableMeta<any>;
+  meta?: TableMeta<TData>;
   hideHeader?: boolean;
   emptyMessage?: () => React.ReactNode;
   nbPlaceholders?: number;
@@ -37,6 +45,11 @@ interface DataTableProps<TData, TValue> {
   initialSort?: SortingState;
   getRowDataCy?: (row: Row<TData>) => string;
   getRowId?: (data: TData) => string;
+  columnVisibility?: VisibilityState;
+  setColumnVisibility?: OnChangeFn<VisibilityState>;
+  defaultColumnVisibility?: VisibilityState;
+  queryFilter?: useQueryFilterReturnType<any, any>;
+  getActions?: GetActions<TData>;
 }
 
 const defaultGetRowId = (data: any) => data.id;
@@ -44,7 +57,6 @@ const defaultGetRowId = (data: any) => data.id;
 export function DataTable<TData, TValue>({
   columns,
   data,
-  meta,
   loading,
   emptyMessage,
   hideHeader,
@@ -58,23 +70,46 @@ export function DataTable<TData, TValue>({
   initialSort,
   getRowDataCy,
   getRowId = defaultGetRowId,
+  columnVisibility,
+  defaultColumnVisibility,
+  setColumnVisibility,
+  queryFilter,
+  getActions,
+  meta, // TODO: Possibly remove this prop once the getActions pattern is implemented fully
   ...tableProps
 }: DataTableProps<TData, TValue>) {
+  const intl = useIntl();
   const [sorting, setSorting] = React.useState<SortingState>(initialSort ?? []);
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const table = useReactTable({
+  const hasDefaultColumnVisibility = isEqual(
+    omitBy(columnVisibility, v => v),
+    omitBy(defaultColumnVisibility, v => v),
+  );
+
+  const table = useReactTable<TData>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    meta,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onRowSelectionChange: setRowSelection,
     getRowId,
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
       rowSelection,
+      columnVisibility,
+    },
+    meta: {
+      intl,
+      onClickRow,
+      queryFilter,
+      getActions,
+      hasDefaultColumnVisibility,
+      setColumnVisibility,
+      defaultColumnVisibility,
+      ...meta,
     },
   });
 
@@ -85,9 +120,13 @@ export function DataTable<TData, TValue>({
           {table.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id} highlightOnHover={false}>
               {headerGroup.headers.map(header => {
-                const columnMeta = header.column.columnDef.meta || {};
+                const { className, align } = header.column.columnDef.meta || {};
                 return (
-                  <TableHead key={header.id} className={columnMeta['className']} fullWidth={tableProps.fullWidth}>
+                  <TableHead
+                    key={header.id}
+                    className={clsx(align === 'right' && 'text-right', className)}
+                    fullWidth={tableProps.fullWidth}
+                  >
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );
@@ -102,19 +141,22 @@ export function DataTable<TData, TValue>({
           [...new Array(nbPlaceholders)].map((_, rowIdx) => (
             // eslint-disable-next-line react/no-array-index-key
             <TableRow key={rowIdx}>
-              {table.getAllFlatColumns().map(column => {
-                const columnMeta = column.columnDef.meta || {};
+              {table.getVisibleFlatColumns().map(column => {
+                const { className, align } = column.columnDef.meta || {};
+                const showSkeleton = column.id !== 'actions' && column.columnDef.header;
+
                 return (
-                  // eslint-disable-next-line react/no-array-index-key
                   <TableCell
                     key={column.id}
                     fullWidth={tableProps.fullWidth}
                     compact={compact}
-                    className={columnMeta['className']}
+                    className={clsx(align === 'right' && 'text-right', className)}
                   >
-                    <div className="inline-block w-1/2">
-                      <Skeleton className="h-4 rounded-lg" />
-                    </div>
+                    {showSkeleton && (
+                      <div className="inline-block w-1/2">
+                        <Skeleton className="h-4 rounded-lg" />
+                      </div>
+                    )}
                   </TableCell>
                 );
               })}
@@ -174,11 +216,11 @@ function DataTableRow({ row, onClickRow, getRowDataCy, rowHasIndicator, tablePro
       })}
     >
       {row.getVisibleCells().map(cell => {
-        const columnMeta = cell.column.columnDef.meta || {};
+        const { className, align } = cell.column.columnDef.meta || {};
         return (
           <TableCell
             key={cell.id}
-            className={columnMeta['className']}
+            className={clsx(align === 'right' && 'text-right', className)}
             fullWidth={tableProps.fullWidth}
             compact={compact}
             {...(rowHasIndicator && {
@@ -203,14 +245,18 @@ type CellContext<TData, TValue> = TanCellContext<TData, TValue> & {
 
 export const actionsColumn = {
   accessorKey: 'actions',
-  header: null,
-  meta: { className: 'w-16' },
+  header: ({ table }) => (
+    <div className="-mr-2 flex justify-end">
+      <ColumnToggleDropdown table={table} />
+    </div>
+  ),
+  meta: { className: 'w-14' },
   enableHiding: false,
   cell: (ctx: unknown) => {
     const { table, row, actionsMenuTriggerRef } = ctx as CellContext<any, any>;
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-      <div onClick={e => e.stopPropagation()} className="flex items-center justify-end">
+      <div onClick={e => e.stopPropagation()} className="-mr-2 flex items-center justify-end">
         <RowActionsMenu table={table} row={row} actionsMenuTriggerRef={actionsMenuTriggerRef} />
       </div>
     );

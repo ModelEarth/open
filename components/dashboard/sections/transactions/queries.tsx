@@ -23,9 +23,12 @@ const transactionsTableQueryCollectionFragment = gql`
       type
       description
       createdAt
+      clearedAt
       isRefunded
       isRefund
       isOrderRejected
+      isInReview
+      isDisputed
       refundTransaction {
         id
         group
@@ -38,6 +41,10 @@ const transactionsTableQueryCollectionFragment = gql`
         imageUrl
         type
         ...AccountHoverCardFields
+      }
+      toAccount {
+        id
+        slug
       }
       oppositeAccount {
         id
@@ -85,7 +92,7 @@ export const transactionsTableQuery = gql`
     $includeGiftCardTransactions: Boolean
     $includeChildrenTransactions: Boolean
     $virtualCard: [VirtualCardReferenceInput]
-    $orderBy: ChronologicalOrderInput
+    $sort: ChronologicalOrderInput
     $group: [String]
     $includeHost: Boolean
     $expenseType: [ExpenseType]
@@ -117,7 +124,7 @@ export const transactionsTableQuery = gql`
       includeChildrenTransactions: $includeChildrenTransactions
       includeDebts: true
       virtualCard: $virtualCard
-      orderBy: $orderBy
+      orderBy: $sort
       group: $group
       includeHost: $includeHost
       expenseType: $expenseType
