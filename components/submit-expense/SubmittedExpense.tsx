@@ -10,11 +10,9 @@ import type {
   CreatePrivateNoteMutation,
   CreatePrivateNoteMutationVariables,
   SubmittedExpenseFromDashboardQuery,
-  SubmittedExpenseFromDashboardQueryVariables} from '../../lib/graphql/types/v2/graphql';
-import {
-  CommentType,
-  ExpenseStatus
+  SubmittedExpenseFromDashboardQueryVariables,
 } from '../../lib/graphql/types/v2/graphql';
+import { CommentType, ExpenseStatus } from '../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../lib/hooks/useLoggedInUser';
 
 import CreateExpenseFAQ from '../faqs/CreateExpenseFAQ';

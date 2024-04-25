@@ -1,5 +1,5 @@
 import React from 'react';
-import type { DocumentNode} from '@apollo/client';
+import type { DocumentNode } from '@apollo/client';
 import { useLazyQuery } from '@apollo/client';
 import { uniqBy } from 'lodash';
 import { Search, Tags, TagsIcon } from 'lucide-react';

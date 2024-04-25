@@ -11,11 +11,9 @@ import type {
   Account,
   Host,
   HostApplication as GraphQLHostApplication,
-  MemberCollection} from '../../../../lib/graphql/types/v2/graphql';
-import {
-  HostApplicationStatus,
-  ProcessHostApplicationAction,
+  MemberCollection,
 } from '../../../../lib/graphql/types/v2/graphql';
+import { HostApplicationStatus, ProcessHostApplicationAction } from '../../../../lib/graphql/types/v2/graphql';
 import { i18nCustomApplicationFormLabel } from '../../../../lib/i18n/custom-application-form';
 
 import Avatar from '../../../Avatar';

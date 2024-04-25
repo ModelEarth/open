@@ -5,17 +5,11 @@ import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { debounce } from 'lodash';
-import type { MouseEventHandler} from 'react';
+import type { MouseEventHandler } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { FormattedMessage, useIntl } from 'react-intl';
-import type {
-  ContainerProps,
-  InputProps,
-  MultiValueProps,
-  OptionProps} from 'react-select';
-import {
-  components as ReactSelectComponents
-} from 'react-select';
+import type { ContainerProps, InputProps, MultiValueProps, OptionProps } from 'react-select';
+import { components as ReactSelectComponents } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 import { IGNORED_TAGS } from '../lib/constants/collectives';

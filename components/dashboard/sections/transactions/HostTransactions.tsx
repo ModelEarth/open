@@ -26,13 +26,8 @@ import { Filterbar } from '../../filters/Filterbar';
 import { hostedAccountFilter } from '../../filters/HostedAccountFilter';
 import type { DashboardSectionProps } from '../../types';
 
-import type {
-  FilterMeta as CommonFilterMeta} from './filters';
-import {
-  filters as commonFilters,
-  schema as commonSchema,
-  toVariables as commonToVariables,
-} from './filters';
+import type { FilterMeta as CommonFilterMeta } from './filters';
+import { filters as commonFilters, schema as commonSchema, toVariables as commonToVariables } from './filters';
 import { transactionsTableQuery } from './queries';
 import { TransactionDrawer } from './TransactionDrawer';
 import TransactionsTable from './TransactionsTable';

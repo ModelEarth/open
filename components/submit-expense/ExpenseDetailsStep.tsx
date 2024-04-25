@@ -2,7 +2,7 @@ import React from 'react';
 import { TaxType } from '@opencollective/taxes';
 import { FormikProvider } from 'formik';
 import { isEmpty, round } from 'lodash';
-import type { IntlShape} from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ExpenseType } from '../../lib/graphql/types/v2/graphql';

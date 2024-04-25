@@ -8,7 +8,7 @@ import { z } from 'zod';
 import type { FilterComponentConfigs, FiltersToVariables, Views } from '../../../../lib/filters/filter-types';
 import { limit, offset } from '../../../../lib/filters/schemas';
 import { API_V2_CONTEXT } from '../../../../lib/graphql/helpers';
-import type { HostApplicationsQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
+import type { HostApplicationsQueryVariables } from '../../../../lib/graphql/types/v2/graphql';
 import { HostApplicationStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 import i18nHostApplicationStatus from '../../../../lib/i18n/host-application-status';

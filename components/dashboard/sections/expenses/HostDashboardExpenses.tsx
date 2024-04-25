@@ -9,11 +9,9 @@ import type { FilterComponentConfigs, FiltersToVariables, Views } from '../../..
 import { API_V2_CONTEXT } from '../../../../lib/graphql/helpers';
 import type {
   AccountHoverCardFieldsFragment,
-  HostDashboardExpensesQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
-import {
-  ExpenseStatusFilter,
-  PayoutMethodType,
+  HostDashboardExpensesQueryVariables,
 } from '../../../../lib/graphql/types/v2/graphql';
+import { ExpenseStatusFilter, PayoutMethodType } from '../../../../lib/graphql/types/v2/graphql';
 import { useLazyGraphQLPaginatedResults } from '../../../../lib/hooks/useLazyGraphQLPaginatedResults';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 
@@ -31,13 +29,8 @@ import { hostedAccountFilter } from '../../filters/HostedAccountFilter';
 import type { DashboardSectionProps } from '../../types';
 
 import ExpensePipelineOverview from './ExpensePipelineOverview';
-import type {
-  FilterMeta as CommonFilterMeta} from './filters';
-import {
-  filters as commonFilters,
-  schema as commonSchema,
-  toVariables as commonToVariables,
-} from './filters';
+import type { FilterMeta as CommonFilterMeta } from './filters';
+import { filters as commonFilters, schema as commonSchema, toVariables as commonToVariables } from './filters';
 import { hostDashboardExpensesQuery, hostDashboardMetadataQuery } from './queries';
 import ScheduledExpensesBanner from './ScheduledExpensesBanner';
 

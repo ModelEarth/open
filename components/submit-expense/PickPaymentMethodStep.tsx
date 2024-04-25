@@ -12,10 +12,9 @@ import type {
   Account,
   Host,
   SavePayoutMethodMutation,
-  SavePayoutMethodMutationVariables} from '../../lib/graphql/types/v2/graphql';
-import {
-  PayoutMethodType
+  SavePayoutMethodMutationVariables,
 } from '../../lib/graphql/types/v2/graphql';
+import { PayoutMethodType } from '../../lib/graphql/types/v2/graphql';
 
 import CollectivePicker from '../CollectivePicker';
 import CollectivePickerAsync from '../CollectivePickerAsync';

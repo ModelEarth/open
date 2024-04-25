@@ -2,7 +2,7 @@ import React from 'react';
 import { ExclamationCircle } from '@styled-icons/fa-solid/ExclamationCircle';
 import { Download as DownloadIcon } from '@styled-icons/feather/Download';
 import { isNil, omit } from 'lodash';
-import type { Accept, FileRejection} from 'react-dropzone';
+import type { Accept, FileRejection } from 'react-dropzone';
 import { useDropzone } from 'react-dropzone';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components';

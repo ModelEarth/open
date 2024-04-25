@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ColumnDef, TableMeta } from '@tanstack/react-table';
 import { Download, Eye } from 'lucide-react';
-import type { IntlShape} from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import type { LegalDocument } from '../../../../lib/graphql/types/v2/graphql';

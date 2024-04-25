@@ -1,14 +1,14 @@
 import React from 'react';
-import type { ApolloClient} from '@apollo/client';
+import type { ApolloClient } from '@apollo/client';
 import { gql, useApolloClient } from '@apollo/client';
 import { accountHasGST, accountHasVAT, checkVATNumberFormat, TaxType } from '@opencollective/taxes';
 import dayjs from 'dayjs';
 import type { Path, PathValue } from 'dot-path-value';
-import type { FormikErrors, FormikHelpers} from 'formik';
+import type { FormikErrors, FormikHelpers } from 'formik';
 import { useFormik } from 'formik';
 import { isEmpty, isEqual, pick, set, uniqBy } from 'lodash';
 import memoizeOne from 'memoize-one';
-import type { IntlShape} from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { useIntl } from 'react-intl';
 import type { ZodObjectDef } from 'zod';
 import z from 'zod';
@@ -24,13 +24,9 @@ import type {
   ExpenseFormSchemaHostFieldsFragment,
   ExpenseFormSchemaQuery,
   ExpenseFormSchemaQueryVariables,
-  LocationInput} from '../../lib/graphql/types/v2/graphql';
-import {
-  Currency,
-  ExpenseStatus,
-  ExpenseType,
-  PayoutMethodType,
+  LocationInput,
 } from '../../lib/graphql/types/v2/graphql';
+import { Currency, ExpenseStatus, ExpenseType, PayoutMethodType } from '../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../lib/hooks/useLoggedInUser';
 import { userMustSetAccountingCategory } from '../expenses/lib/accounting-categories';
 import { computeExpenseAmounts, expenseTypeSupportsItemCurrency, getSupportedCurrencies } from '../expenses/lib/utils';

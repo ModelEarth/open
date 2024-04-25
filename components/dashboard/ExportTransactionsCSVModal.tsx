@@ -9,8 +9,7 @@ import type { MouseEventHandler } from 'react';
 import { FormattedMessage } from 'react-intl';
 import slugify from 'slugify';
 
-import type {
-  CSVField} from '../../lib/csv';
+import type { CSVField } from '../../lib/csv';
 import {
   AVERAGE_TRANSACTIONS_PER_MINUTE,
   FIELD_OPTIONS,

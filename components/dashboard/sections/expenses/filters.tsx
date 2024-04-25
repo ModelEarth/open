@@ -8,12 +8,9 @@ import { boolean, isMulti, limit, offset } from '../../../../lib/filters/schemas
 import type {
   AccountExpensesQueryVariables,
   Currency,
-  HostDashboardExpensesQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
-import {
-  ExpenseStatusFilter,
-  ExpenseType,
-  PayoutMethodType,
+  HostDashboardExpensesQueryVariables,
 } from '../../../../lib/graphql/types/v2/graphql';
+import { ExpenseStatusFilter, ExpenseType, PayoutMethodType } from '../../../../lib/graphql/types/v2/graphql';
 import { i18nExpenseStatus, i18nExpenseType } from '../../../../lib/i18n/expense';
 import i18nPayoutMethodType from '../../../../lib/i18n/payout-method-type';
 import { i18nChargeHasReceipts } from '../../../../lib/i18n/receipts-filter';

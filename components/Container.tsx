@@ -11,19 +11,9 @@ import type {
   ShadowProps,
   SizeProps,
   SpaceProps,
-  TypographyProps} from 'styled-system';
-import {
-  background,
-  border,
-  color,
-  flexbox,
-  layout,
-  position,
-  shadow,
-  size,
-  space,
-  typography
+  TypographyProps,
 } from 'styled-system';
+import { background, border, color, flexbox, layout, position, shadow, size, space, typography } from 'styled-system';
 
 import type {
   ClearProps,
@@ -32,7 +22,8 @@ import type {
   OverflowProps,
   PointerEventsProps,
   WhiteSpaceProps,
-  WordBreakProps} from '../lib/styled-system-custom-properties';
+  WordBreakProps,
+} from '../lib/styled-system-custom-properties';
 import {
   clear,
   cursor,
@@ -40,7 +31,7 @@ import {
   overflow,
   pointerEvents,
   whiteSpace,
-  wordBreak
+  wordBreak,
 } from '../lib/styled-system-custom-properties';
 
 export type ContainerProps = FlexboxProps &

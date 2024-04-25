@@ -10,22 +10,15 @@ import type {
   FlexboxProps,
   LayoutProps,
   SpaceProps,
-  TypographyProps} from 'styled-system';
-import {
-  background,
-  border,
-  color,
-  flexbox,
-  layout,
-  space,
-  typography
+  TypographyProps,
 } from 'styled-system';
+import { background, border, color, flexbox, layout, space, typography } from 'styled-system';
 
 import { mergeRefs } from '../lib/react-utils';
 import type { TextTransformProps, WhiteSpaceProps } from '../lib/styled-system-custom-properties';
 import { textTransform, whiteSpace } from '../lib/styled-system-custom-properties';
 import theme from '../lib/theme';
-import type { ButtonSize, ButtonStyle} from '../lib/theme/variants/button';
+import type { ButtonSize, ButtonStyle } from '../lib/theme/variants/button';
 import { buttonSize, buttonStyle } from '../lib/theme/variants/button';
 
 import StyledSpinner from './StyledSpinner';

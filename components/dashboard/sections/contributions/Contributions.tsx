@@ -8,7 +8,7 @@ import type { z } from 'zod';
 import { EMPTY_ARRAY } from '../../../../lib/constants/utils';
 import type { Views } from '../../../../lib/filters/filter-types';
 import { API_V2_CONTEXT, gql } from '../../../../lib/graphql/helpers';
-import type { Order} from '../../../../lib/graphql/types/v2/graphql';
+import type { Order } from '../../../../lib/graphql/types/v2/graphql';
 import { OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 
@@ -39,7 +39,7 @@ import { EmptyResults } from '../../EmptyResults';
 import { Filterbar } from '../../filters/Filterbar';
 import type { DashboardSectionProps } from '../../types';
 
-import type { FilterMeta} from './filters';
+import type { FilterMeta } from './filters';
 import { filters, OrderTypeFilter, schema, toVariables } from './filters';
 import { PausedIncomingContributionsMessage } from './PausedIncomingContributionsMessage';
 

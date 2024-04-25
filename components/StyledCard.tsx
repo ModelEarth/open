@@ -9,7 +9,8 @@ import type {
   PositionProps,
   ShadowProps,
   SpaceProps,
-  TypographyProps} from 'styled-system';
+  TypographyProps,
+} from 'styled-system';
 import {
   background,
   border,
@@ -20,7 +21,7 @@ import {
   position,
   shadow,
   space,
-  typography
+  typography,
 } from 'styled-system';
 
 type StyledCardProps = BackgroundProps &

@@ -12,21 +12,13 @@ import type {
   LayoutProps,
   ShadowProps,
   SpaceProps,
-  TypographyProps} from 'styled-system';
-import {
-  borders,
-  color,
-  display,
-  flexbox,
-  layout,
-  shadow,
-  space,
-  typography
+  TypographyProps,
 } from 'styled-system';
+import { borders, color, display, flexbox, layout, shadow, space, typography } from 'styled-system';
 
 import type { WhiteSpaceProps } from '../lib/styled-system-custom-properties';
 import { whiteSpace } from '../lib/styled-system-custom-properties';
-import type { MessageType} from '../lib/theme/variants/message';
+import type { MessageType } from '../lib/theme/variants/message';
 import { messageType } from '../lib/theme/variants/message';
 
 import { Box, Flex } from './Grid';

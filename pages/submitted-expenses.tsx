@@ -1,9 +1,9 @@
 import React from 'react';
-import type { DataValue} from '@apollo/client/react/hoc';
+import type { DataValue } from '@apollo/client/react/hoc';
 import { graphql } from '@apollo/client/react/hoc';
 import { has, omit, omitBy } from 'lodash';
 import memoizeOne from 'memoize-one';
-import type { NextRouter} from 'next/router';
+import type { NextRouter } from 'next/router';
 import { withRouter } from 'next/router';
 import type { IntlShape } from 'react-intl';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
@@ -15,12 +15,8 @@ import { PayoutMethodType } from '../lib/constants/payout-method';
 import { parseDateInterval } from '../lib/date-utils';
 import { generateNotFoundError } from '../lib/errors';
 import { API_V2_CONTEXT, gql } from '../lib/graphql/helpers';
-import type {
-  SubmittedExpensesPageQuery,
-  SubmittedExpensesPageQueryVariables} from '../lib/graphql/types/v2/graphql';
-import {
-  ExpenseStatus
-} from '../lib/graphql/types/v2/graphql';
+import type { SubmittedExpensesPageQuery, SubmittedExpensesPageQueryVariables } from '../lib/graphql/types/v2/graphql';
+import { ExpenseStatus } from '../lib/graphql/types/v2/graphql';
 import type LoggedInUser from '../lib/LoggedInUser';
 import { getCollectivePageCanonicalURL } from '../lib/url-helpers';
 

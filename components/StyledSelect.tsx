@@ -9,22 +9,12 @@ import type {
   GroupHeadingProps,
   OptionProps,
   Props as ReactSelectProps,
-  ValueContainerProps} from 'react-select';
-import Select, {
-  components as ReactSelectComponents
+  ValueContainerProps,
 } from 'react-select';
+import Select, { components as ReactSelectComponents } from 'react-select';
 import styled from 'styled-components';
-import type {
-  BorderProps,
-  BorderRadiusProps,
-  LayoutProps,
-  SpaceProps,
-  TypographyProps} from 'styled-system';
-import {
-  layout,
-  space,
-  typography
-} from 'styled-system';
+import type { BorderProps, BorderRadiusProps, LayoutProps, SpaceProps, TypographyProps } from 'styled-system';
+import { layout, space, typography } from 'styled-system';
 
 import Container from './Container';
 import { Flex } from './Grid';

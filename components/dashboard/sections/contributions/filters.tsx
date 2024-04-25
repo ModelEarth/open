@@ -7,11 +7,9 @@ import { integer, isMulti } from '../../../../lib/filters/schemas';
 import type {
   Currency,
   DashboardRecurringContributionsQueryVariables,
-  HostContributionsQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
-import {
-  ContributionFrequency,
-  OrderStatus,
+  HostContributionsQueryVariables,
 } from '../../../../lib/graphql/types/v2/graphql';
+import { ContributionFrequency, OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
 import i18nOrderStatus from '../../../../lib/i18n/order-status';
 import { sortSelectOptions } from '../../../../lib/utils';
 

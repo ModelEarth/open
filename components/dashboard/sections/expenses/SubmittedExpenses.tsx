@@ -19,7 +19,7 @@ import { EmptyResults } from '../../EmptyResults';
 import { Filterbar } from '../../filters/Filterbar';
 import type { DashboardSectionProps } from '../../types';
 
-import type { FilterMeta} from './filters';
+import type { FilterMeta } from './filters';
 import { filters, schema, toVariables } from './filters';
 import { accountExpensesQuery } from './queries';
 

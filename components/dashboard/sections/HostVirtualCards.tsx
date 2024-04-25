@@ -8,7 +8,7 @@ import { z } from 'zod';
 import type { FilterComponentConfigs, FiltersToVariables, Views } from '../../../lib/filters/filter-types';
 import { boolean, isMulti, limit, offset } from '../../../lib/filters/schemas';
 import { API_V2_CONTEXT, gql } from '../../../lib/graphql/helpers';
-import type { Currency, HostedVirtualCardsQueryVariables} from '../../../lib/graphql/types/v2/graphql';
+import type { Currency, HostedVirtualCardsQueryVariables } from '../../../lib/graphql/types/v2/graphql';
 import { VirtualCardStatus } from '../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../lib/hooks/useQueryFilter';
 import { i18nHasMissingReceipts } from '../../../lib/i18n/receipts-filter';

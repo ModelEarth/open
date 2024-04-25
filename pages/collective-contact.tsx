@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import type { IntlShape} from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { getCollectivePageMetadata } from '../lib/collective';

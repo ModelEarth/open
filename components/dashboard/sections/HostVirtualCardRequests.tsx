@@ -10,10 +10,9 @@ import type {
   Account,
   Host,
   HostVirtualCardRequestsQueryVariables,
-  VirtualCardRequestCollection} from '../../../lib/graphql/types/v2/graphql';
-import {
-  VirtualCardRequestStatus,
+  VirtualCardRequestCollection,
 } from '../../../lib/graphql/types/v2/graphql';
+import { VirtualCardRequestStatus } from '../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../lib/hooks/useQueryFilter';
 import { i18nVirtualCardRequestStatus } from '../../../lib/i18n/virtual-card-request';
 import { sortSelectOptions } from '../../../lib/utils';

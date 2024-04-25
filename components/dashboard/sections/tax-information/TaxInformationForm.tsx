@@ -26,7 +26,7 @@ import WarnIfUnsavedChanges from '../../../WarnIfUnsavedChanges';
 
 import type { BaseFormValues, TaxFormType } from './common';
 import { BaseFormSchema } from './common';
-import type { AccountFromTaxInformationQuery} from './queries';
+import type { AccountFromTaxInformationQuery } from './queries';
 import { accountTaxInformationQuery } from './queries';
 import { TaxFormPreview } from './TaxFormPreview';
 import { TaxFormPreviewModal } from './TaxFormPreviewModal';

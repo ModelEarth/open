@@ -1,24 +1,11 @@
 import { themeGet } from '@styled-system/theme-get';
 import type React from 'react';
 import styled, { css } from 'styled-components';
-import type {
-  BorderProps,
-  ColorProps,
-  LayoutProps,
-  SpaceProps,
-  TypographyProps} from 'styled-system';
-import {
-  background,
-  border,
-  color,
-  layout,
-  space,
-  system,
-  typography
-} from 'styled-system';
+import type { BorderProps, ColorProps, LayoutProps, SpaceProps, TypographyProps } from 'styled-system';
+import { background, border, color, layout, space, system, typography } from 'styled-system';
 
 import { textDecoration, whiteSpace } from '../lib/styled-system-custom-properties';
-import type { ButtonSize, ButtonStyle} from '../lib/theme/variants/button';
+import type { ButtonSize, ButtonStyle } from '../lib/theme/variants/button';
 import { buttonSize, buttonStyle } from '../lib/theme/variants/button';
 
 type StyledLinkProps = BorderProps &

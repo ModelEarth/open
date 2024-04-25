@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowDownNarrowWide, ArrowDownWideNarrow } from 'lucide-react';
-import type { MessageDescriptor} from 'react-intl';
+import type { MessageDescriptor } from 'react-intl';
 import { defineMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 

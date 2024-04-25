@@ -10,10 +10,9 @@ import { API_V2_CONTEXT } from '../../../../lib/graphql/helpers';
 import type {
   AccountingCategory,
   AdminAccountingCategoriesQuery,
-  AdminAccountingCategoriesQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
-import {
-  AccountingCategoryKind
+  AdminAccountingCategoriesQueryVariables,
 } from '../../../../lib/graphql/types/v2/graphql';
+import { AccountingCategoryKind } from '../../../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../../../lib/hooks/useLoggedInUser';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 

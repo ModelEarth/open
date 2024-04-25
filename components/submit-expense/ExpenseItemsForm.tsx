@@ -6,12 +6,8 @@ import { get } from 'lodash';
 import { PlusIcon } from 'lucide-react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import type {
-  Currency,
-  CurrencyExchangeRateInput} from '../../lib/graphql/types/v2/graphql';
-import {
-  CurrencyExchangeRateSourceType,
-} from '../../lib/graphql/types/v2/graphql';
+import type { Currency, CurrencyExchangeRateInput } from '../../lib/graphql/types/v2/graphql';
+import { CurrencyExchangeRateSourceType } from '../../lib/graphql/types/v2/graphql';
 import { isValidUrl } from '../../lib/utils';
 import { attachmentDropzoneParams } from '../expenses/lib/attachments';
 import { FX_RATE_ERROR_THRESHOLD, getExpenseExchangeRateWarningOrError } from '../expenses/lib/utils';

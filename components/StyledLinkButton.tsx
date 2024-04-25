@@ -1,6 +1,6 @@
 import type React from 'react';
 import styled from 'styled-components';
-import type { ColorProps, TypographyProps} from 'styled-system';
+import type { ColorProps, TypographyProps } from 'styled-system';
 import { color, typography, variant } from 'styled-system';
 
 import type { TextDecorationProps } from '../lib/styled-system-custom-properties';

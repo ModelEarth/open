@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { isUndefined, uniqBy } from 'lodash';
 import { CheckIcon, PlusIcon } from 'lucide-react';
-import type { IntlShape, MessageDescriptor} from 'react-intl';
+import type { IntlShape, MessageDescriptor } from 'react-intl';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { z } from 'zod';
 

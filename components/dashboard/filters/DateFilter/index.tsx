@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { DateFilterValue } from './DateFilterValue';
 import { DateInput } from './DateInput';
 import { DateRangeInput } from './DateRangeInput';
-import type { DateFilterValueType} from './schema';
+import type { DateFilterValueType } from './schema';
 import { dateFilterSchema, DateFilterType, dateToVariables, Period } from './schema';
 import { Timezonepicker } from './TimezonePicker';
 

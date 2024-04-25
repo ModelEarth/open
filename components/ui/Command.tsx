@@ -6,7 +6,7 @@ import * as React from 'react';
 import type { DialogProps } from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { Command as CommandPrimitive } from 'cmdk';
-import type { LucideIcon} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Loader2, Search } from 'lucide-react';
 
 import { cn } from '../../lib/utils';

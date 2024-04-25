@@ -7,7 +7,7 @@ import { z } from 'zod';
 import type { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
 import { integer, isMulti } from '../../../../lib/filters/schemas';
 import { API_V2_CONTEXT, gql } from '../../../../lib/graphql/helpers';
-import type { HostTaxFormsQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
+import type { HostTaxFormsQueryVariables } from '../../../../lib/graphql/types/v2/graphql';
 import { LegalDocumentRequestStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../../../lib/hooks/useLoggedInUser';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';

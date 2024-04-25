@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import type { AccountingCategory} from '../../../../lib/graphql/types/v2/graphql';
+import type { AccountingCategory } from '../../../../lib/graphql/types/v2/graphql';
 import { AccountingCategoryKind } from '../../../../lib/graphql/types/v2/graphql';
 import { i18nExpenseType } from '../../../../lib/i18n/expense';
 
@@ -10,8 +10,7 @@ import HTMLContent, { isEmptyHTMLValue } from '../../../HTMLContent';
 import StyledButton from '../../../StyledButton';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu';
 
-import type {
-  EditableAccountingCategoryFields} from './AccountingCategoryForm';
+import type { EditableAccountingCategoryFields } from './AccountingCategoryForm';
 import {
   AccountingCategoryForm,
   AccountingCategoryKindI18n,

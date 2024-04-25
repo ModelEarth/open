@@ -15,14 +15,8 @@ import { ButtonSet } from '../../../ui/ButtonSet';
 import { Checkbox } from '../../../ui/Checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../ui/Select';
 
-import type {
-  BaseFormValues} from './common';
-import {
-  BaseFormSchema,
-  FederalTaxClassification,
-  SubmitterType,
-  TaxFormLocationFields,
-} from './common';
+import type { BaseFormValues } from './common';
+import { BaseFormSchema, FederalTaxClassification, SubmitterType, TaxFormLocationFields } from './common';
 import { HintText } from './HintText';
 import type { AccountFromTaxInformationQuery } from './queries';
 

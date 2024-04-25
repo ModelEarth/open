@@ -3,7 +3,7 @@ import { Paypal } from '@styled-icons/fa-brands/Paypal';
 import { MoneyCheck } from '@styled-icons/fa-solid/MoneyCheck';
 import { Landmark } from 'lucide-react';
 
-import type { PayoutMethod} from '../lib/graphql/types/v2/graphql';
+import type { PayoutMethod } from '../lib/graphql/types/v2/graphql';
 import { PayoutMethodType } from '../lib/graphql/types/v2/graphql';
 
 import Image from './Image';
