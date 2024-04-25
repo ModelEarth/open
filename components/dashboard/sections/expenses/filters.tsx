@@ -5,12 +5,13 @@ import { z } from 'zod';
 
 import type { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
 import { boolean, isMulti, limit, offset } from '../../../../lib/filters/schemas';
-import {
+import type {
   AccountExpensesQueryVariables,
   Currency,
+  HostDashboardExpensesQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
+import {
   ExpenseStatusFilter,
   ExpenseType,
-  HostDashboardExpensesQueryVariables,
   PayoutMethodType,
 } from '../../../../lib/graphql/types/v2/graphql';
 import { i18nExpenseStatus, i18nExpenseType } from '../../../../lib/i18n/expense';

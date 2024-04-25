@@ -1,26 +1,29 @@
-import styled, { css, CSSProp } from 'styled-components';
+import type { CSSProp } from 'styled-components';
+import styled, { css } from 'styled-components';
+import type {
+  ColorProps,
+  DisplayProps,
+  SpaceProps,
+  TypographyProps} from 'styled-system';
 import {
   color,
-  ColorProps,
   display,
-  DisplayProps,
   space,
-  SpaceProps,
-  typography,
-  TypographyProps,
+  typography
 } from 'styled-system';
 
+import type {
+  CursorProps,
+  OverflowWrapProps,
+  TextTransformProps,
+  WhiteSpaceProps,
+  WordBreakProps} from '../lib/styled-system-custom-properties';
 import {
   cursor,
-  CursorProps,
   overflowWrap,
-  OverflowWrapProps,
   textTransform,
-  TextTransformProps,
   whiteSpace,
-  WhiteSpaceProps,
-  wordBreak,
-  WordBreakProps,
+  wordBreak
 } from '../lib/styled-system-custom-properties';
 
 export type TextProps = ColorProps &

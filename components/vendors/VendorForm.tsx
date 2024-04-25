@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { i18nGraphqlException } from '../../lib/errors';
 import { requireFields, verifyEmailPattern, verifyURLPattern } from '../../lib/form-utils';
 import { API_V2_CONTEXT, gql } from '../../lib/graphql/helpers';
-import { DashboardVendorsQuery } from '../../lib/graphql/types/v2/graphql';
+import type { DashboardVendorsQuery } from '../../lib/graphql/types/v2/graphql';
 import { omitDeep } from '../../lib/utils';
 
 import { useDrawerActionsContainer } from '../Drawer';
@@ -25,7 +25,8 @@ import { Button } from '../ui/Button';
 import { Switch } from '../ui/Switch';
 import { useToast } from '../ui/useToast';
 
-import { vendorFieldFragment, VendorFieldsFragment } from './queries';
+import type { VendorFieldsFragment } from './queries';
+import { vendorFieldFragment } from './queries';
 
 const FIELD_LABEL_PROPS = { fontSize: 16, fontWeight: 700 };
 

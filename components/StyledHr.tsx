@@ -1,20 +1,21 @@
-import React from 'react';
 import propTypes from '@styled-system/prop-types';
 import { themeGet } from '@styled-system/theme-get';
+import type React from 'react';
 import styled from 'styled-components';
+import type {
+  BorderProps,
+  DisplayProps,
+  FlexProps,
+  LayoutProps,
+  ShadowProps,
+  SpaceProps} from 'styled-system';
 import {
   border,
-  BorderProps,
   display,
-  DisplayProps,
   flex,
-  FlexProps,
   layout,
-  LayoutProps,
   shadow,
-  ShadowProps,
-  space,
-  SpaceProps,
+  space
 } from 'styled-system';
 
 type StyledHrProps = SpaceProps &

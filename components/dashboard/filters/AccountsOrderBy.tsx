@@ -1,7 +1,8 @@
-import { defineMessage, MessageDescriptor } from 'react-intl';
+import type { MessageDescriptor } from 'react-intl';
+import { defineMessage } from 'react-intl';
 import { z } from 'zod';
 
-import { FilterConfig } from '../../../lib/filters/filter-types';
+import type { FilterConfig } from '../../../lib/filters/filter-types';
 
 import { buildOrderByFilterComponent } from './OrderFilter';
 

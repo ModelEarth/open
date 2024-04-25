@@ -6,12 +6,13 @@ import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 
 import { CollectiveType, HostedCollectiveTypes } from '../../../../lib/constants/collectives';
-import { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
+import type { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
 import { integer, isMulti } from '../../../../lib/filters/schemas';
 import { API_V2_CONTEXT } from '../../../../lib/graphql/helpers';
-import {
+import type {
   Collective,
-  HostedCollectivesQueryVariables,
+  HostedCollectivesQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
+import {
   HostFeeStructure,
 } from '../../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
@@ -35,7 +36,7 @@ import {
 import ComboSelectFilter from '../../filters/ComboSelectFilter';
 import { Filterbar } from '../../filters/Filterbar';
 import { searchFilter } from '../../filters/SearchFilter';
-import { DashboardSectionProps } from '../../types';
+import type { DashboardSectionProps } from '../../types';
 
 import CollectiveDetails from './CollectiveDetails';
 import { cols } from './common';

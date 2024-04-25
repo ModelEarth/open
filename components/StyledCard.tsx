@@ -1,25 +1,26 @@
 import styledPropTypes from '@styled-system/prop-types';
 import styled from 'styled-components';
+import type {
+  BackgroundProps,
+  BorderProps,
+  ColorProps,
+  FlexboxProps,
+  LayoutProps,
+  PositionProps,
+  ShadowProps,
+  SpaceProps,
+  TypographyProps} from 'styled-system';
 import {
   background,
-  BackgroundProps,
   border,
-  BorderProps,
   color,
-  ColorProps,
   compose,
   flexbox,
-  FlexboxProps,
   layout,
-  LayoutProps,
   position,
-  PositionProps,
   shadow,
-  ShadowProps,
   space,
-  SpaceProps,
-  typography,
-  TypographyProps,
+  typography
 } from 'styled-system';
 
 type StyledCardProps = BackgroundProps &

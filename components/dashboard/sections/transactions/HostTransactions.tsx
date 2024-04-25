@@ -4,9 +4,9 @@ import { FlaskConical, Megaphone } from 'lucide-react';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 
-import { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
+import type { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
 import { API_V2_CONTEXT } from '../../../../lib/graphql/helpers';
-import { TransactionsTableQueryVariables } from '../../../../lib/graphql/types/v2/graphql';
+import type { TransactionsTableQueryVariables } from '../../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 
 import { FEEDBACK_KEY, FeedbackModal } from '../../../FeedbackModal';
@@ -24,10 +24,11 @@ import ExportTransactionsCSVModal from '../../ExportTransactionsCSVModal';
 import { accountingCategoryFilter } from '../../filters/AccountingCategoryFilter';
 import { Filterbar } from '../../filters/Filterbar';
 import { hostedAccountFilter } from '../../filters/HostedAccountFilter';
-import { DashboardSectionProps } from '../../types';
+import type { DashboardSectionProps } from '../../types';
 
+import type {
+  FilterMeta as CommonFilterMeta} from './filters';
 import {
-  FilterMeta as CommonFilterMeta,
   filters as commonFilters,
   schema as commonSchema,
   toVariables as commonToVariables,

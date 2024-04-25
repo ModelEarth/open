@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import { downloadLegalDocument } from '../../../../lib/api';
 import { formatErrorMessage } from '../../../../lib/errors';
-import { LegalDocument } from '../../../../lib/graphql/types/v2/graphql';
+import type { LegalDocument } from '../../../../lib/graphql/types/v2/graphql';
 import { useTwoFactorAuthenticationPrompt } from '../../../../lib/two-factor-authentication/TwoFactorAuthenticationContext';
 
 import { useToast } from '../../../ui/useToast';

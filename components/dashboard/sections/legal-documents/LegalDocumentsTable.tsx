@@ -1,9 +1,10 @@
 import React from 'react';
-import { ColumnDef, TableMeta } from '@tanstack/react-table';
+import type { ColumnDef, TableMeta } from '@tanstack/react-table';
 import { Download, Eye } from 'lucide-react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import type { IntlShape} from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import { LegalDocument } from '../../../../lib/graphql/types/v2/graphql';
+import type { LegalDocument } from '../../../../lib/graphql/types/v2/graphql';
 import formatCollectiveType from '../../../../lib/i18n/collective-type';
 
 import { AccountHoverCard } from '../../../AccountHoverCard';

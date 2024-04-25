@@ -6,13 +6,14 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import { i18nGraphqlException } from '../../lib/errors';
 import { API_V2_CONTEXT } from '../../lib/graphql/helpers';
-import {
-  CommentType,
+import type {
   CreatePrivateNoteMutation,
   CreatePrivateNoteMutationVariables,
-  ExpenseStatus,
   SubmittedExpenseFromDashboardQuery,
-  SubmittedExpenseFromDashboardQueryVariables,
+  SubmittedExpenseFromDashboardQueryVariables} from '../../lib/graphql/types/v2/graphql';
+import {
+  CommentType,
+  ExpenseStatus
 } from '../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../lib/hooks/useLoggedInUser';
 

@@ -3,14 +3,15 @@ import { useQuery } from '@apollo/client';
 import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 
-import { FilterComponentConfigs, FiltersToVariables, Views } from '../../../lib/filters/filter-types';
+import type { FilterComponentConfigs, FiltersToVariables, Views } from '../../../lib/filters/filter-types';
 import { isMulti, limit, offset } from '../../../lib/filters/schemas';
 import { API_V2_CONTEXT, gql } from '../../../lib/graphql/helpers';
-import {
+import type {
   Account,
   Host,
   HostVirtualCardRequestsQueryVariables,
-  VirtualCardRequestCollection,
+  VirtualCardRequestCollection} from '../../../lib/graphql/types/v2/graphql';
+import {
   VirtualCardRequestStatus,
 } from '../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../lib/hooks/useQueryFilter';
@@ -31,7 +32,7 @@ import { EmptyResults } from '../EmptyResults';
 import ComboSelectFilter from '../filters/ComboSelectFilter';
 import { Filterbar } from '../filters/Filterbar';
 import { hostedAccountFilter } from '../filters/HostedAccountFilter';
-import { DashboardSectionProps } from '../types';
+import type { DashboardSectionProps } from '../types';
 
 const schema = z.object({
   limit,

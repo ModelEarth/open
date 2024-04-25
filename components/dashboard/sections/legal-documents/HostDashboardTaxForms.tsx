@@ -4,10 +4,11 @@ import { PlusIcon } from 'lucide-react';
 import { defineMessage, FormattedMessage } from 'react-intl';
 import { z } from 'zod';
 
-import { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
+import type { FilterComponentConfigs, FiltersToVariables } from '../../../../lib/filters/filter-types';
 import { integer, isMulti } from '../../../../lib/filters/schemas';
 import { API_V2_CONTEXT, gql } from '../../../../lib/graphql/helpers';
-import { HostTaxFormsQueryVariables, LegalDocumentRequestStatus } from '../../../../lib/graphql/types/v2/graphql';
+import type { HostTaxFormsQueryVariables} from '../../../../lib/graphql/types/v2/graphql';
+import { LegalDocumentRequestStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useLoggedInUser from '../../../../lib/hooks/useLoggedInUser';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 import { i18nLegalDocumentStatus } from '../../../../lib/i18n/legal-document';
@@ -26,7 +27,7 @@ import { dateToVariables } from '../../filters/DateFilter/schema';
 import { Filterbar } from '../../filters/Filterbar';
 import { orderByFilter } from '../../filters/OrderFilter';
 import { searchFilter } from '../../filters/SearchFilter';
-import { DashboardSectionProps } from '../../types';
+import type { DashboardSectionProps } from '../../types';
 
 import LegalDocumentDrawer from './LegalDocumentDrawer';
 import LegalDocumentsTable from './LegalDocumentsTable';

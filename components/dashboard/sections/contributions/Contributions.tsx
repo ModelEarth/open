@@ -3,18 +3,20 @@ import { useQuery } from '@apollo/client';
 import { compact, toNumber } from 'lodash';
 import { useRouter } from 'next/router';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { z } from 'zod';
+import type { z } from 'zod';
 
 import { EMPTY_ARRAY } from '../../../../lib/constants/utils';
-import { Views } from '../../../../lib/filters/filter-types';
+import type { Views } from '../../../../lib/filters/filter-types';
 import { API_V2_CONTEXT, gql } from '../../../../lib/graphql/helpers';
-import { Order, OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
+import type { Order} from '../../../../lib/graphql/types/v2/graphql';
+import { OrderStatus } from '../../../../lib/graphql/types/v2/graphql';
 import useQueryFilter from '../../../../lib/hooks/useQueryFilter';
 
 import Avatar from '../../../Avatar';
 import { DataTable } from '../../../DataTable';
 import DateTime from '../../../DateTime';
-import EditOrderModal, { EditOrderActions } from '../../../EditOrderModal';
+import type { EditOrderActions } from '../../../EditOrderModal';
+import EditOrderModal from '../../../EditOrderModal';
 import FormattedMoneyAmount from '../../../FormattedMoneyAmount';
 import LinkCollective from '../../../LinkCollective';
 import MessageBoxGraphqlError from '../../../MessageBoxGraphqlError';
@@ -35,9 +37,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../../../ui/Tooltip';
 import DashboardHeader from '../../DashboardHeader';
 import { EmptyResults } from '../../EmptyResults';
 import { Filterbar } from '../../filters/Filterbar';
-import { DashboardSectionProps } from '../../types';
+import type { DashboardSectionProps } from '../../types';
 
-import { FilterMeta, filters, OrderTypeFilter, schema, toVariables } from './filters';
+import type { FilterMeta} from './filters';
+import { filters, OrderTypeFilter, schema, toVariables } from './filters';
 import { PausedIncomingContributionsMessage } from './PausedIncomingContributionsMessage';
 
 enum ContributionsTab {

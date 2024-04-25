@@ -16,7 +16,7 @@ import Tabs from '../../../../Tabs';
 import { Pagination } from '../../../../ui/Pagination';
 import { DashboardContext } from '../../../DashboardContext';
 import DashboardHeader from '../../../DashboardHeader';
-import { DashboardSectionProps } from '../../../types';
+import type { DashboardSectionProps } from '../../../types';
 
 import { CurrentPeriodBadge } from './CurrentPeriodBadge';
 import { hostReportQuery } from './queries';

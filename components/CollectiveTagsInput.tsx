@@ -1,18 +1,20 @@
-import React, { Fragment, MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLazyQuery } from '@apollo/client';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { debounce } from 'lodash';
+import type { MouseEventHandler} from 'react';
 import AnimateHeight from 'react-animate-height';
 import { FormattedMessage, useIntl } from 'react-intl';
-import {
-  components as ReactSelectComponents,
+import type {
   ContainerProps,
   InputProps,
   MultiValueProps,
-  OptionProps,
+  OptionProps} from 'react-select';
+import {
+  components as ReactSelectComponents
 } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 

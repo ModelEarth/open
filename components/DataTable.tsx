@@ -1,12 +1,13 @@
 import React from 'react';
-import {
+import type {
   ColumnDef,
+  Row,
+  SortingState,
+  TableMeta} from '@tanstack/react-table';
+import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
-  Row,
-  SortingState,
-  TableMeta,
   useReactTable,
 } from '@tanstack/react-table';
 import { FormattedMessage } from 'react-intl';
